@@ -6,14 +6,14 @@ import sys
 
 def pygame_start():
     app.destroy()
-    print("Test")
+    print("Paint Rush")
 
 
 def button_callback():
     print("Button Pressed")
 
 app = customtkinter.CTk()
-app.title("My first test")
+app.title("paint Rush Main Menu")
 app.geometry("400x140")
 app.grid_columnconfigure(0, weight=1)
 
