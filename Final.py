@@ -17,7 +17,7 @@ app.title("My first test")
 app.geometry("400x140")
 app.grid_columnconfigure(0, weight=1)
 
-button = customtkinter.CTkButton(app, text="My first test", command=button_callback)
+button = customtkinter.CTkButton(app, text="Start Game", command=button_callback)
 button.grid(row=0, column=0, padx=20, pady=20, sticky="ew")
 
 
