@@ -32,4 +32,3 @@ while True:
          for eve in pygame.event.get():
               if eve.type==pygame.QUIT:
                    pygame.quit()
-                   sys.exit()
