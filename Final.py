@@ -1,4 +1,6 @@
 from tkinter import*
+import tkinter as tk
+from tkinter import ttk
 from PIL import ImageTk, Image
 import pygame
 import sys
@@ -9,9 +11,10 @@ def pygame_start():
 
 
 root=Tk()
+text=Text(root, height=8)
+text.pack
 #photo = Image.open("Final-Project/Assets/BackgroundImage.png")
 photo = ImageTk.PhotoImage(Image.open("Final-ICS111/Assets/Canvas.png").resize((1750, 1750)))
-
 w = Label(root, image=photo)
 w.pack()
 root.title('Paint Rush')
@@ -42,6 +45,7 @@ def tab():
     tab3_b = Button(root, text='Start Button', font=('Arial', 20), command=pygame_start)
     tab3_b.place(x=1120, y=567)
 tab()
+
 root.mainloop()
 
 pygame.init()
