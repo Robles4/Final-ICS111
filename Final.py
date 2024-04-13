@@ -10,17 +10,19 @@ def pygame_start():
 
 
 def button_callback():
-    print("Button Pressed")
+    print("Pressed")
 
 app = customtkinter.CTk()
 app.title("paint Rush Main Menu")
-app.geometry("400x140")
+app.geometry("400x300")
 app.grid_columnconfigure(0, weight=1)
 
 button = customtkinter.CTkButton(app, text="Start Game", command=button_callback)
-button.grid(row=0, column=0, padx=20, pady=20, sticky="ew")
-
-
+button.grid(row=0, column=0, padx=20, pady=20)
+button2 = customtkinter.CTkButton(app, text="Settings", command=button_callback)
+button2.grid(row=10, column=0, padx=20, pady=20)
+button3 = customtkinter.CTkButton(app, text="How To Play", command=button_callback)
+button3.grid(row=20, column=0, padx=20, pady=20)
 
 app.mainloop()
 
