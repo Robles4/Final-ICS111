@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 
 
+
 LARGEFONT =("Verdana", 175)
 class tkinterApp(tk.Tk):
 	# __init__ function for class tkinterApp 
@@ -47,13 +48,13 @@ class tkinterApp(tk.Tk):
 class StartPage(tk.Frame):
 	def __init__(self, parent, controller): 
 		tk.Frame.__init__(self, parent)
-		
+
 		# label of frame Layout 2
 		label = ttk.Label(self, text ="Paint Rush", font = LARGEFONT)
 		
 		# putting the grid in its place by using
 		# grid
-		label.grid(row = 0, column = 4, padx = 10, pady = 10) 
+		label.grid(row = 0, column = 10, padx = 10, pady = 10) 
 
 		button1 = ttk.Button(self, text ="How to Play",
 		command = lambda : controller.show_frame(Page1))
@@ -92,7 +93,7 @@ class Page1(tk.Frame):
 
 		# button to show frame 2 with text
 		# layout2
-		button1 = ttk.Button(self, text ="How to Play",
+		button1 = ttk.Button(self, text ="Back",
 							command = lambda : controller.show_frame(StartPage))
 	
 		# putting the button in its place 
@@ -137,7 +138,7 @@ class Page2(tk.Frame):
 
 		# button to show frame 3 with text
 		# layout3
-		button2 = ttk.Button(self, text ="Settings",
+		button2 = ttk.Button(self, text ="Back",
 							command = lambda : controller.show_frame(StartPage))
 	
 		# putting the button in its place by
@@ -153,6 +154,10 @@ class Page2(tk.Frame):
 		# using grid
 		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
 		
+		frame = tk.Frame(self)
+		
+
+
 # third window frame page2
 class Page3(tk.Frame): 
 	def __init__(self, parent, controller):
@@ -186,9 +191,7 @@ class Page3(tk.Frame):
 		# putting the button in its place by
 		# using grid
 		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-		
-
-
-# Driver Code
+		# Centering the buttons
+  
 app = tkinterApp()
 app.mainloop()
