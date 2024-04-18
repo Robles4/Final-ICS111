@@ -1,197 +1,132 @@
-from PIL import ImageTk, Image
-import tkinter as tk
-from tkinter import ttk
+import customtkinter as ctk
+
+LARGEFONT =("Verdana", 100)
 
 
+class customtkinterApp(ctk.CTk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-LARGEFONT =("Verdana", 175)
-class tkinterApp(tk.Tk):
-	# __init__ function for class tkinterApp 
-	def __init__(self, *args, **kwargs): 
-		
-		# __init__ function for class Tk
-		tk.Tk.__init__(self, *args, **kwargs)
-		
-		# creating a container
-		container = tk.Frame(self) 
-		container.pack(side = "top", fill = "both", expand = True) 
+        self.container = ctk.CTkFrame(self)
+        self.container.pack(side="top", fill="both", expand=True)
 
-		container.grid_rowconfigure(0, weight = 20)
-		container.grid_columnconfigure(0, weight = 20)
+        self.container.grid_rowconfigure(0, weight=20)
+        self.container.grid_columnconfigure(0, weight=20)
 
-		# initializing frames to an empty array
-		self.frames = {} 
+        self.frames = {}
 
-		# iterating through a tuple consisting
-		# of the different page layouts
-		for F in (StartPage, Page1, Page2):
+        for F in (StartPage, Page1, Page2):
+            frame = F(self.container, self)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
 
-			frame = F(container, self)
+        self.show_frame(StartPage)
 
-			# initializing frame of that object from
-			# startpage, page1, page2 respectively with 
-			# for loop
-			self.frames[F] = frame 
+    def show_frame(self, cont):
+        frame = self.frames[cont]
+        frame.lift()  # Use lift() for customtkinter
 
-			frame.grid(row = 0, column = 0, sticky ="nsew")
+class StartPage(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
 
-		self.show_frame(StartPage)
+        label = ctk.CTkLabel(self, text="Paint Rush", font=LARGEFONT)
+        label.grid(row=0, column=10, padx=10, pady=10)
 
-	# to display the current frame passed as
-	# parameter
-	def show_frame(self, cont):
-		frame = self.frames[cont]
-		frame.tkraise()
+        button1 = ctk.CTkButton(self, text="How to Play",
+                                command=lambda: controller.show_frame(Page1))
+        button1.grid(row=1, column=1, padx=10, pady=10)
 
-# first window frame startpage
+        button2 = ctk.CTkButton(self, text="Settings",
+                                command=lambda: controller.show_frame(Page2))
+        button2.grid(row=2, column=1, padx=10, pady=10)
 
-class StartPage(tk.Frame):
-	def __init__(self, parent, controller): 
-		tk.Frame.__init__(self, parent)
-
-		# label of frame Layout 2
-		label = ttk.Label(self, text ="Paint Rush", font = LARGEFONT)
-		
-		# putting the grid in its place by using
-		# grid
-		label.grid(row = 0, column = 10, padx = 10, pady = 10) 
-
-		button1 = ttk.Button(self, text ="How to Play",
-		command = lambda : controller.show_frame(Page1))
-	
-		# putting the button in its place by
-		# using grid
-		button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-		## button to show frame 2 with text layout2
-		button2 = ttk.Button(self, text ="Settings",
-		command = lambda : controller.show_frame(Page2))
-	
-		# putting the button in its place by
-		# using grid
-		button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-        # button to show frame 3 with text
-		# layout3
-		button3 = ttk.Button(self, text ="Play game",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-		
+        button3 = ctk.CTkButton(self, text="Play game",
+                                command=lambda: controller.show_frame(StartPage))  # Corrected loop
+        button3.grid(row=3, column=1, padx=10, pady=10)
 
 
-# second window frame page1 
-class Page1(tk.Frame):
-	
-	def __init__(self, parent, controller):
-		
-		tk.Frame.__init__(self, parent)
-		label = ttk.Label(self, text ="How to Play", font = LARGEFONT)
-		label.grid(row = 0, column = 4, padx = 10, pady = 10)
+class Page1(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
 
-		# button to show frame 2 with text
-		# layout2
-		button1 = ttk.Button(self, text ="Back",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place 
-		# by using grid
-		button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-		
-		# button to show frame 2 with text
-		# layout2
-		button2 = ttk.Button(self, text ="Settings",
-							command = lambda : controller.show_frame(Page2))
-	
-		# putting the button in its place by 
-		# using grid
-		button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+        label = ctk.CTkLabel(self, text="How to Play", font=LARGEFONT)
+        label.grid(row=0, column=4, padx=10, pady=10)
+
+        button1 = ctk.CTkButton(self, text="Back",
+                                command=lambda: controller.show_frame(StartPage))
+        button1.grid(row=1, column=1, padx=10, pady=10)
+
+        button2 = ctk.CTkButton(self, text="Settings",
+                                command=lambda: controller.show_frame(Page2))
+        button2.grid(row=2, column=1, padx=10, pady=10)
+
+        button3 = ctk.CTkButton(self, text="Play game",
+                                command=lambda: controller.show_frame(StartPage))
+        button3.grid(row=3, column=1, padx=10, pady=10)
+
+
+class Page2(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+
+        self.switch1_var = ctk.StringVar(value="on")
+
+        label = ctk.CTkLabel(self, text="Settings Page", font=LARGEFONT)
+        label.grid(row=0, column=4, padx=10, pady=10)
+
+        button1 = ctk.CTkButton(self, text="Back",
+                                command=lambda: controller.show_frame(StartPage))
+        button1.grid(row=1, column=1, padx=10, pady=10)
+
+        button2 = ctk.CTkButton(self, text="Settings",
+                                command=lambda: controller.show_frame(Page2))
+        button2.grid(row=2, column=1, padx=10, pady=10)
+
+        button3 = ctk.CTkButton(self, text="Play game",
+                                command=lambda: controller.show_frame(StartPage))
+        button3.grid(row=3, column=1, padx=10, pady=10)
+
+        switch1 = ctk.CTkSwitch(self, text="Color modes", variable=self.switch1_var, onvalue="on", offvalue="off", command=self.switch1)        
+        switch1.grid(row=4, column=1, padx=10, pady=10)
         
-        # button to show frame 3 with text
-		# layout3
-		button3 = ttk.Button(self, text ="Play game",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-
-
-
-# third window frame page2
-class Page2(tk.Frame): 
-	def __init__(self, parent, controller):
-		tk.Frame.__init__(self, parent)
-		label = ttk.Label(self, text ="Settings", font = LARGEFONT)
-		label.grid(row = 0, column = 4, padx = 10, pady = 10)
-
-		# button to show frame 2 with text
-		# layout2
-		button1 = ttk.Button(self, text ="How to Play",
-							command = lambda : controller.show_frame(Page1))
-	
-		# putting the button in its place by 
-		# using grid
-		button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-		# button to show frame 3 with text
-		# layout3
-		button2 = ttk.Button(self, text ="Back",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-        # button to show frame 3 with text
-		# layout3
-		button3 = ttk.Button(self, text ="Play game",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-		
-		frame = tk.Frame(self)
+		switch2 = ctk.CTkSwitch(self, text="No Music", variable=self.switch2_var, onvalue="on", offvalue="off", command=self.switch2)        
+        switch2.grid(row=5, column=1, padx=10, pady=10,)
+        
+		switch3 = ctk.CTkSwitch(self, text="No Music", variable=self.switch3_var, onvalue="on", offvalue="off", command=self.switch3)        
+        switch3.grid(row=5, column=1, padx=10, pady=10,)
+    def switch1(self):
+        print("Switch 1 is", self.switch1_var.get())
+        if self.switch1_var.get() == "on":
+            app._set_appearance_mode("light")
+            self.configure(bg="white")
+            self.update()
+        else:
+            app._set_appearance_mode("dark")
+            self.configure(bg="black")
+            self.update()
 		
 
 
-# third window frame page2
-class Page3(tk.Frame): 
-	def __init__(self, parent, controller):
-		tk.Frame.__init__(self, parent)
-		label = ttk.Label(self, text ="Play Game", font = LARGEFONT)
-		label.grid(row = 0, column = 4, padx = 10, pady = 10)
+class Page3(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
 
-		# button to show frame 3 with text
-		# layout3
-		button1 = ttk.Button(self, text ="Main menu",
-							command = lambda : controller.show_frame(Page1))
-	
-		# putting the button in its place by 
-		# using grid
-		button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+        label = ctk.CTkLabel(self, text="Select game mode!", font=LARGEFONT)
+        label.grid(row=0, column=4, padx=10, pady=10)
 
-		# button to show frame 3 with text
-		# layout3
-		button2 = ttk.Button(self, text ="Settings",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-		
-        # button to show frame 3 with text
-		# layout3
-		button3 = ttk.Button(self, text ="Play game",
-							command = lambda : controller.show_frame(StartPage))
-	
-		# putting the button in its place by
-		# using grid
-		button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-		# Centering the buttons
-  
-app = tkinterApp()
+        button1 = ctk.CTkButton(self, text="Back",
+                                command=lambda: controller.show_frame(StartPage))
+        button1.grid(row=1, column=1, padx=10, pady=10)
+
+        button2 = ctk.CTkButton(self, text="Settings",
+                                command=lambda: controller.show_frame(Page2))
+        button2.grid(row=2, column=1, padx=10, pady=10)
+
+        button3 = ctk.CTkButton(self, text="Play game",
+                                command=lambda: controller.show_frame(StartPage))
+        button3.grid(row=3, column=1, padx=10, pady=10)
+
+app = customtkinterApp()
+app._set_appearance_mode("dark")
 app.mainloop()
