@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import Final1
 
 LARGEFONT =("Verdana", 100)
 
