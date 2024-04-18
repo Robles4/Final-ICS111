@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 import pygame
 import random
  
@@ -57,7 +55,3 @@ except StopIteration:
    
 # Quit
 pygame.quit()
-=======
-import pygame
-
->>>>>>> e7b31c333183a4b21202aa29e387862eed80b662
