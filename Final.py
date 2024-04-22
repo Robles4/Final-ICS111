@@ -1,7 +1,7 @@
 import customtkinter as ctk
-import Final1
+import random
 
-LARGEFONT =("Verdana", 100)
+LARGEFONT =("Verdana", 50)
 
 
 class customtkinterApp(ctk.CTk):
@@ -39,12 +39,12 @@ class StartPage(ctk.CTkFrame):
                                 command=lambda: controller.show_frame(Page1))
         button1.grid(row=1, column=1, padx=10, pady=10)
 
-        button2 = ctk.CTkButton(self, text="Settings",
+        button2 = ctk.CTkButton(self, text="Credits",
                                 command=lambda: controller.show_frame(Page2))
         button2.grid(row=2, column=1, padx=10, pady=10)
 
         button3 = ctk.CTkButton(self, text="Play game",
-                                command=lambda: controller.show_frame(StartPage))  # Corrected loop
+                                command=lambda: controller.show_frame(Page3))  # Corrected loop
         button3.grid(row=3, column=1, padx=10, pady=10)
 
 
@@ -56,15 +56,15 @@ class Page1(ctk.CTkFrame):
         label.grid(row=0, column=4, padx=10, pady=10)
 
         button1 = ctk.CTkButton(self, text="Back",
-                                command=lambda: controller.show_frame(StartPage))
+                                command=lambda: controller.show_frame(Page1))
         button1.grid(row=1, column=1, padx=10, pady=10)
 
-        button2 = ctk.CTkButton(self, text="Settings",
+        button2 = ctk.CTkButton(self, text="Credits",
                                 command=lambda: controller.show_frame(Page2))
         button2.grid(row=2, column=1, padx=10, pady=10)
 
         button3 = ctk.CTkButton(self, text="Play game",
-                                command=lambda: controller.show_frame(StartPage))
+                                command=lambda: controller.show_frame(Page3))
         button3.grid(row=3, column=1, padx=10, pady=10)
 
 
@@ -72,68 +72,64 @@ class Page2(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
-        self.switch1_var = ctk.StringVar(value="on")
-        self.switch2_var = ctk.StringVar(value="off")  # Changed initial value to "off"
+         # Create a container element for centering
+        container = ctk.CTkFrame(self)
+        container.grid(column=0, row=0, columnspan=5, rowspan=6)  # Span all columns and rows
 
-        label = ctk.CTkLabel(self, text="Settings Page", font=LARGEFONT)
+        # Centering logic using grid with negative margins
+        label = ctk.CTkLabel(container, text="Thanks to My professor for the ideas", font=LARGEFONT)
+        label.grid(row=8, column=1, padx=10 ,pady=10)  # Adjust row and column for placement
+
+        # Make the row and column containing the label flexible
+        container.grid_rowconfigure(1, weight=1)
+        container.grid_columnconfigure(2, weight=1)
+
+        # Calculate negative margins for centering
+        window_width = self.winfo_width()  # Get window width
+        label_width = label.winfo_width()  # Get label width
+        margin_x = (window_width - label_width) // 2  # Calculate horizontal margin
+
+        # Apply negative margins to center the label
+        label.grid(row=1, column=2, pady=20, padx=-margin_x)  # Add negative horizontal margin
+
+        label = ctk.CTkLabel(self, text="Credits Page", font=LARGEFONT)
         label.grid(row=0, column=4, padx=10, pady=10)
 
-        button1 = ctk.CTkButton(self, text="Back",
-                                 command=lambda: controller.show_frame(StartPage))
-        button1.grid(row=1, column=1, padx=10, pady=10)
+        button1 = ctk.CTkButton(self, text="How to Play",
+                                 command=lambda: controller.show_frame(Page1))
+        button1.grid(row=1, column=5, padx=10, pady=10)
 
-        button2 = ctk.CTkButton(self, text="Settings",
+        button2 = ctk.CTkButton(self, text="Back",
                                  command=lambda: controller.show_frame(Page2))
-        button2.grid(row=2, column=1, padx=10, pady=10)
+        button2.grid(row=2, column=5, padx=10, pady=10)
 
         button3 = ctk.CTkButton(self, text="Play game",
-                                 command=lambda: controller.show_frame(StartPage))
-        button3.grid(row=3, column=1, padx=10, pady=10)
+                                 command=lambda: controller.show_frame(Page3))
+        button3.grid(row=3, column=5, padx=10, pady=10)
 
-        # Switches placed in the middle rows
-        switch1 = ctk.CTkSwitch(self, text="Color modes", variable=self.switch1_var, onvalue="on", offvalue="off", command=self)
-        switch1.grid(row=4, column=2, padx=10, pady=10, sticky="nsew")  # Moved to center column
 
-        switch2 = ctk.CTkSwitch(self, text="No Music", variable=self.switch2_var, onvalue="on", offvalue="off", command=self)
-        switch2.grid(row=5, column=2, padx=10, pady=10, sticky="nsew")  # Moved to center column
-
-    def switch1(self):
-        print("Switch 1 is", self.switch1_var.get())
-        if self.switch1_var.get() == "on":
-            app._set_appearance_mode("light")
-            self.configure(bg="white")
-        else:
-            app._set_appearance_mode("dark")
-            self.configure(bg="black")
-        self.update()
-
-    def switch2(self):
-        print("Switch 2 is", self.switch2_var.get())
-        if self.switch2_var.get() == "on":
-            # Implement functionality to turn music off (e.g., mute audio)
-            print("Music off")
-        else:
-            # Implement functionality to turn music on (e.g., unmute audio)
-            print("Music on")
-
+    
 class Page3(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
-        label = ctk.CTkLabel(self, text="Select game mode!", font=LARGEFONT)
+        label = ctk.CTkLabel(self, text="Choose Game mode", font=LARGEFONT)
         label.grid(row=0, column=4, padx=10, pady=10)
 
-        button1 = ctk.CTkButton(self, text="Back",
-                                command=lambda: controller.show_frame(StartPage))
+        button1 = ctk.CTkButton(self, text="How to Play", command=lambda: controller.show_frame(Page1))
         button1.grid(row=1, column=1, padx=10, pady=10)
 
-        button2 = ctk.CTkButton(self, text="Settings",
-                                command=lambda: controller.show_frame(Page2))
+        button2 = ctk.CTkButton(self, text="Credits", command=lambda: controller.show_frame(Page2))
         button2.grid(row=2, column=1, padx=10, pady=10)
 
-        button3 = ctk.CTkButton(self, text="Play game",
-                                command=lambda: controller.show_frame(StartPage))
+        button3 = ctk.CTkButton(self, text="Back", command=lambda: controller.show_frame(Page3))
         button3.grid(row=3, column=1, padx=10, pady=10)
+
+        button4 = ctk.CTkButton(self, text="Freeplay")
+        button4.grid(row=4, column=5, padx=20, pady=20,)
+
+        button5 = ctk.CTkButton(self, text="Racing mode")
+        button5.grid(row=5, column=5, padx=20, pady=20,)
 
 app = customtkinterApp()
 app.mainloop()

@@ -5,14 +5,16 @@ import random
 screen = pygame.display.set_mode((900, 700))
 
 # Setting Title
-pygame.display.set_caption('GFG Paint')
+pygame.display.set_caption('Creative / Paint')
 
 
 draw_on = False
 last_pos = (0, 0)
 
+
+# Color of the Brush
 # Radius of the Brush
-radius = 5
+radius = 10
 
 
 def roundline(canvas, color, start, end, radius=1):
@@ -41,6 +43,7 @@ try:
 		# When mouse button released it will stop drawing 
 		if e.type == pygame.MOUSEBUTTONUP:
 			draw_on = False
+			last_pos = e.pos 
 		# It will draw a continuous circle with the help of roundline function. 
 		if e.type == pygame.MOUSEMOTION:
 			if draw_on:
@@ -48,7 +51,7 @@ try:
 				roundline(screen, color, e.pos, last_pos, radius)
 			last_pos = e.pos
 		pygame.display.flip()
-
+		
 except StopIteration:
 	pass
 
