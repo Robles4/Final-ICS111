@@ -1,5 +1,33 @@
 import pygame
 import random
+from PIL import Image, ImageDraw
+
+# Define palette size and base color
+width = 500
+height = 200
+base_color = (255, 255, 255)  # White
+
+# Create image object
+img = Image.new('RGB', (width, height), base_color)
+draw = ImageDraw.Draw(img)
+
+# Define well size and spacing
+well_width = 50
+well_height = 30
+padding = 10
+
+# Loop to draw colored rectangles for wells (replace colors with your choices)
+colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
+x = padding
+y = padding
+for color in colors:
+    draw.rectangle([(x, y), (x + well_width, y + well_height)], fill=color)
+    x += well_width + padding
+
+# Display or save the image
+img.show()  # This will display the image on your screen
+# img.save("palette.png")  # This will save the image as palette.png
+
 
 # Making canvas
 screen = pygame.display.set_mode((900, 700))
@@ -51,7 +79,7 @@ try:
 				roundline(screen, color, e.pos, last_pos, radius)
 			last_pos = e.pos
 		pygame.display.flip()
-		
+
 except StopIteration:
 	pass
 
