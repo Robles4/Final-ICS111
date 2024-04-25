@@ -4,12 +4,13 @@ pygame.init()
 fps = 60
 timer = pygame.time.Clock()
 WIDTH = 800
-HEIGHT = 600
+HEIGHT = 800
 active_size = 0
 active_color = 'white'
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Paint Rush // Creative / Paint")
 painting = []
+
 
 
 def draw_menu(active_size, active_color):
@@ -25,13 +26,13 @@ def draw_menu(active_size, active_color):
     pygame.draw.circle(screen, 'white', (215, 35), 5)
     brush_list = [xl_brush, l_brush, m_brush, s_brush]
     if active_size == 20:
-        pygame.draw.rect(screen, 'green', (10, 10, 50, 50),3)
+        pygame.draw.rect(screen, 'blue', (10, 10, 50, 50),3)
     elif active_size == 15:
-        pygame.draw.rect(screen, 'green', (70, 10, 50, 50),3)
+        pygame.draw.rect(screen, 'blue', (70, 10, 50, 50),3)
     elif active_size == 10:
-        pygame.draw.rect(screen, 'green', (130, 10, 50, 50),3)
+        pygame.draw.rect(screen, 'blue', (130, 10, 50, 50),3)
     elif active_size == 5:
-        pygame.draw.rect(screen, 'green', (190, 10, 50, 50),3)
+        pygame.draw.rect(screen, 'blue', (190, 10, 50, 50),3)
 
 
     pygame.draw.circle(screen, active_color, (400, 35), 30)

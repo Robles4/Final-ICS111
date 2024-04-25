@@ -1,5 +1,8 @@
 import customtkinter as ctk
 import random
+import Final1
+import Final2
+
 
 LARGEFONT =("Verdana", 50)
 
@@ -130,6 +133,5 @@ class Page3(ctk.CTkFrame):
 
         button5 = ctk.CTkButton(self, text="Racing mode")
         button5.grid(row=5, column=5, padx=20, pady=20,)
-
 app = customtkinterApp()
 app.mainloop()
