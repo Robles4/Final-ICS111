@@ -7,6 +7,8 @@ WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("MS Paint Challenge")
+active_size = 0
+active_color = 'white'
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -15,7 +17,10 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 # Objects to draw
-OBJECTS = ["circle", "square", "triangle"]
+OBJECTS = ["circle", "square", "triangle", "paddle", "star", "heart", "moon", 
+           "earth", "hunky Hawaiian man", "ur mom", "santa", "snowflake", "rainbow",
+           "a bee", "octagon", "Hawaii island", "a laptop"]
+
 
 # Define the main game loop
 def main():
@@ -27,7 +32,7 @@ def main():
     clock = pygame.time.Clock()
     time_remaining = 1000  # Initial time limit (in seconds)
     current_object = random.choice(OBJECTS)  # Choose a random object to draw
-    selected_color = BLACK  # Initial color
+    selected_color = random.choice([RED, GREEN, BLUE, BLACK,])  # Choose a random color
    
     # Font for displaying text
     font = pygame.font.Font(None, 36)
@@ -73,12 +78,12 @@ def main():
             time_remaining -= 1
         else:
             # Time's up, reset the timer and choose a new object to draw
-            time_remaining = 1000
+            time_remaining = 10000
             current_object = random.choice(OBJECTS)
             canvas.fill(WHITE)
        
         # Cap the frame rate
-        clock.tick(200)
+        clock.tick(400)
 
 # Run the game
 if __name__ == "__main__":
