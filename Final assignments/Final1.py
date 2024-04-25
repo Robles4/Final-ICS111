@@ -3,19 +3,38 @@ import random
 
 pygame.init()
 
-window_height = 800
-window_width = 800
-window = pygame.display.set_mode((window_width, window_height))
-pygame.display.set_caption("Paint Rush // Racing mode / Paint")
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+pygame.display.set_caption("MS Paint Challenge")
 
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Objects to draw
+OBJECTS = ["circle", "square", "triangle"]
+
+# Define the main game loop
 def main():
+    # Game loop variables
     running = True
     drawing = False
-    canvas = pygame.Surface((window_width, window_height))
-    canvas.fill((255, 255, 255))
+    canvas = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+    canvas.fill(WHITE)
     clock = pygame.time.Clock()
-
+    time_remaining = 1000  # Initial time limit (in seconds)
+    current_object = random.choice(OBJECTS)  # Choose a random object to draw
+    selected_color = BLACK  # Initial color
+   
+    # Font for displaying text
+    font = pygame.font.Font(None, 36)
+   
+    # Main game loop
     while running:
+        # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -28,13 +47,39 @@ def main():
             elif event.type == pygame.MOUSEMOTION:
                 if drawing:
                     x, y = event.pos
-                    pygame.draw.circle(canvas, (0, 0, 0), (x, y), 5)
-
-        window.fill((255, 255, 255))
+                    pygame.draw.circle(canvas, selected_color, (x, y), 5)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r: 
+                    canvas.fill(WHITE)
+                elif event.key == pygame.K_c: 
+                    selected_color = random.choice([BLACK, RED, GREEN, BLUE])
+       
+        window.fill(WHITE)
         window.blit(canvas, (0, 0))
+       
+        timer_text = font.render("Time: {}s".format(time_remaining), True, BLACK)
+        window.blit(timer_text, (10, 10))
+       
+        object_text = font.render("Draw a {}".format(current_object), True, BLACK)
+        window.blit(object_text, (10, 50))
+       
+        color_text = font.render("Color: {}".format(selected_color), True, selected_color)
+        window.blit(color_text, (10, 90))
+       
         pygame.display.flip()
+       
+        # Update timer
+        if time_remaining > 0:
+            time_remaining -= 1
+        else:
+            # Time's up, reset the timer and choose a new object to draw
+            time_remaining = 1000
+            current_object = random.choice(OBJECTS)
+            canvas.fill(WHITE)
+       
+        # Cap the frame rate
+        clock.tick(200)
 
-        clock.tick(60)
-
+# Run the game
 if __name__ == "__main__":
-    main()  
+    main()
