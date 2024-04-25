@@ -19,19 +19,22 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                drawing = True
-            if event.type == pygame.MOUSEBUTTONUP:
-                drawing = False
-            if event.type == pygame.MOUSEMOTION:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    drawing = True
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    drawing = False
+            elif event.type == pygame.MOUSEMOTION:
                 if drawing:
-                    pygame.draw.line(canvas, (0, 0, 0), (event.pos[0], event.pos[1]), (event.pos[0], event.pos[1]), 1)
+                    x, y = event.pos
+                    pygame.draw.circle(canvas, (0, 0, 0), (x, y), 5)
 
         window.fill((255, 255, 255))
         window.blit(canvas, (0, 0))
         pygame.display.flip()
 
         clock.tick(60)
-        
+
 if __name__ == "__main__":
     main()  
