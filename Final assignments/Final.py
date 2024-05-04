@@ -100,7 +100,7 @@ class Page3(ctk.CTkFrame):
         try:
             import Final1
             pygame.init()
-            Final1.main()  # Replace `main()` with the appropriate function in Final1
+            Final1.main()
         except Exception as e:
             print("Error running freeplay game:", e)
 
@@ -108,7 +108,7 @@ class Page3(ctk.CTkFrame):
         try:
             import Final2
             pygame.init()
-            Final2.main()  # Replace `main()` with the appropriate function in Final2
+            Final2.main()
         except Exception as e:
             print("Error running racing game:", e)
 

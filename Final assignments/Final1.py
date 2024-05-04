@@ -85,6 +85,8 @@ def main():
         # Cap the frame rate
         clock.tick(1000)
 
+    pygame.display.flip()
+
 # Run the game
 if __name__ == "__main__":
     main()
